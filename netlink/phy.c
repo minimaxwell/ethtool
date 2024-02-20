@@ -12,6 +12,7 @@
 #include "../internal.h"
 #include "../common.h"
 #include "netlink.h"
+#include "parser.h"
 
 /* PHY_GET / PHY_DUMP */
 
@@ -145,8 +146,8 @@ static const struct param_parser phy_set_params[] = {
 int nl_set_phy(struct cmd_context *ctx)
 {
 	struct nl_context *nlctx = ctx->nlctx;
-	struct nl_socket *nlsk = nlctx->ethnl_socket;
-	u32 flags;
+	struct nl_msg_buff *msgbuff;
+	struct nl_socket *nlsk;
 	int ret;
 
 	if (netlink_cmd_check(ctx, ETHTOOL_MSG_PHY_SET, true))
