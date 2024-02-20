@@ -82,6 +82,12 @@ int phy_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 		print_string(PRINT_ANY, "upstream_sfp_name", "Upstream SFP name: %s\n",
 			     mnl_attr_get_str(tb[ETHTOOL_A_PHY_UPSTREAM_SFP_NAME]));
 
+	if (tb[ETHTOOL_A_PHY_LOOPBACK])
+		show_bool("loopback", "loopback : %s\n", tb[ETHTOOL_A_PHY_LOOPBACK]);
+
+	if (tb[ETHTOOL_A_PHY_ISOLATE])
+		show_bool("isolate", "isolate :%s\n", tb[ETHTOOL_A_PHY_ISOLATE]);
+
 	if (!silent)
 		print_nl();
 
@@ -117,5 +123,62 @@ int nl_get_phy(struct cmd_context *ctx)
 	new_json_obj(ctx->json);
 	ret = nlsock_send_get_request(nlsk, phy_reply_cb);
 	delete_json_obj();
+	return ret;
+}
+
+static const struct param_parser phy_set_params[] = {
+	{
+		.arg		= "loopback",
+		.type		= ETHTOOL_A_PHY_LOOPBACK,
+		.handler	= nl_parse_u8bool,
+		.min_argc	= 1,
+	},
+	{
+		.arg		= "isolate",
+		.type		= ETHTOOL_A_PHY_ISOLATE,
+		.handler	= nl_parse_direct_u8bool,
+		.min_argc	= 1,
+	},
+	{}
+};
+
+int nl_set_phy(struct cmd_context *ctx)
+{
+	struct nl_context *nlctx = ctx->nlctx;
+	struct nl_socket *nlsk = nlctx->ethnl_socket;
+	u32 flags;
+	int ret;
+
+	if (netlink_cmd_check(ctx, ETHTOOL_MSG_PHY_SET, true))
+		return -EOPNOTSUPP;
+
+	nlctx->cmd = "--set-phy";
+	nlctx->argp = ctx->argp;
+	nlctx->argc = ctx->argc;
+	nlctx->devname = ctx->devname;
+	nlsk = nlctx->ethnl_socket;
+	msgbuff = &nlsk->msgbuff;
+
+	ret = msg_init(nlctx, msgbuff, ETHTOOL_MSG_PHY_SET,
+		       NLM_F_REQUEST | NLM_F_ACK);
+	if (ret)
+		return ret;
+
+	if (ethnla_fill_header(msgbuff, ETHTOOL_A_PHY_HEADER,
+			       ctx->devname, 0))
+		return -EMSGSIZE;
+
+	ret = nl_parser(nlctx, phy_set_params, NULL, PARSER_GROUP_NONE, NULL);
+	if (ret)
+		return ret;
+
+	ret = nlsock_sendmsg(nlsk, NULL);
+	if (ret < 0)
+		return ret;
+
+	ret = nlsock_process_reply(nlsk, nomsg_reply_cb, nlctx);
+	if (ret)
+		return nlctx->exit_code;
+
 	return ret;
 }
