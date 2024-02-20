@@ -6379,6 +6379,14 @@ static const struct option args[] = {
 		.help	= "Show Mean Square Error (MSE) diagnostics",
 	},
 	{
+		.opts	= "--set-phy",
+		.targets_phy	= true,
+		.nlfunc	= nl_set_phy,
+		.help	= "Set PHY parameters",
+		.xhelp	= "		[ loopback on|off ]\n"
+			  "		[ isolate on|off ]\n"
+	},
+	{
 		.opts	= "-h|--help",
 		.no_dev	= true,
 		.func	= show_usage,
