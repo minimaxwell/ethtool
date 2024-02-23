@@ -49,6 +49,7 @@ ethtool_SOURCES += \
 		  netlink/plca.c \
 		  netlink/pse-pd.c \
 		  netlink/phy.c \
+		  netlink/port.c \
 		  uapi/linux/ethtool_netlink.h \
 		  uapi/linux/netlink.h uapi/linux/genetlink.h \
 		  uapi/linux/rtnetlink.h uapi/linux/if_link.h \

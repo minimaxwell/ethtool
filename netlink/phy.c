@@ -137,7 +137,7 @@ static const struct param_parser phy_set_params[] = {
 	{
 		.arg		= "isolate",
 		.type		= ETHTOOL_A_PHY_ISOLATE,
-		.handler	= nl_parse_direct_u8bool,
+		.handler	= nl_parse_u8bool,
 		.min_argc	= 1,
 	},
 	{}
@@ -150,7 +150,7 @@ int nl_set_phy(struct cmd_context *ctx)
 	struct nl_socket *nlsk;
 	int ret;
 
-	if (netlink_cmd_check(ctx, ETHTOOL_MSG_PHY_SET, true))
+	if (netlink_cmd_check(ctx, ETHTOOL_MSG_PHY_SET, false))
 		return -EOPNOTSUPP;
 
 	nlctx->cmd = "--set-phy";
@@ -165,8 +165,8 @@ int nl_set_phy(struct cmd_context *ctx)
 	if (ret)
 		return ret;
 
-	if (ethnla_fill_header(msgbuff, ETHTOOL_A_PHY_HEADER,
-			       ctx->devname, 0))
+	if (ethnla_fill_header_phy(msgbuff, ETHTOOL_A_PHY_HEADER,
+				   ctx->devname, ctx->phy_index, 0))
 		return -EMSGSIZE;
 
 	ret = nl_parser(nlctx, phy_set_params, NULL, PARSER_GROUP_NONE, NULL);

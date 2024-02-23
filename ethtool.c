@@ -6155,6 +6155,20 @@ static const struct option args[] = {
 			  "		[ isolate on|off ]\n"
 	},
 	{
+		.opts	= "--show-ports",
+		.nlfunc	= nl_get_port,
+		.help	= "List Ports"
+	},
+	{
+		.opts	= "--set-port",
+		.targets_phy	= false,
+		.nlfunc	= nl_set_port,
+		.help	= "Set Port parameters",
+		.xhelp	= "		[ port N ]\n"
+			  "		[ enable on|off ]\n"
+			  "		[ force on|off ]\n"
+	},
+	{
 		.opts	= "-h|--help",
 		.no_dev	= true,
 		.func	= show_usage,

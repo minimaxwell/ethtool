@@ -57,6 +57,8 @@ int nl_gpse(struct cmd_context *ctx);
 int nl_spse(struct cmd_context *ctx);
 int nl_get_phy(struct cmd_context *ctx);
 int nl_set_phy(struct cmd_context *ctx);
+int nl_get_port(struct cmd_context *ctx);
+int nl_set_port(struct cmd_context *ctx);
 
 void nl_monitor_usage(void);
 
