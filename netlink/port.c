@@ -51,17 +51,20 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 
 	open_json_object(NULL);
 
-	print_string(PRINT_ANY, "ifname", "PHY for %s:\n", nlctx->devname);
+	print_string(PRINT_ANY, "ifname", "Port for %s:\n", nlctx->devname);
 
 	show_u32("port_id", "Port id: ", tb[ETHTOOL_A_PORT_ID]);
 	print_string(PRINT_ANY, "port_type", "Port type: %s\n",
 		     port_type_to_str(mnl_attr_get_u32(tb[ETHTOOL_A_PORT_TYPE])));
 
-	show_bool("enabled", "enabled : %s\n", tb[ETHTOOL_A_PHY_LOOPBACK]);
-	show_bool("forced", "forced : %s\n", tb[ETHTOOL_A_PHY_LOOPBACK]);
+	if (tb[ETHTOOL_A_PORT_ENABLED])
+		show_bool("enabled", "enabled : %s\n", tb[ETHTOOL_A_PORT_ENABLED]);
+	if (tb[ETHTOOL_A_PORT_FORCED])
+		show_bool("forced", "forced : %s\n", tb[ETHTOOL_A_PORT_FORCED]);
 
-	print_string(PRINT_ANY, "port_type", "Port type: %s\n",
-		     port_state_to_str(mnl_attr_get_u32(tb[ETHTOOL_A_PORT_STATE])));
+	if (tb[ETHTOOL_A_PORT_STATE])
+		print_string(PRINT_ANY, "port_type", "Port type: %s\n",
+			     port_state_to_str(mnl_attr_get_u32(tb[ETHTOOL_A_PORT_STATE])));
 
 	if (!silent)
 		print_nl();
