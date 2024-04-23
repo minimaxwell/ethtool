@@ -6216,6 +6216,7 @@ static const struct option args[] = {
 		.nlfunc	= nl_spse,
 		.help	= "Set Power Sourcing Equipment settings",
 		.xhelp	= "		[ podl-pse-admin-control enable|disable ]\n"
+			  "		[ c33-pse-admin-control enable|disable ]\n"
 	},
 	{
 		.opts	= "-h|--help",
