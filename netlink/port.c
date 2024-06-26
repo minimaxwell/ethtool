@@ -27,12 +27,19 @@ const char *port_state_to_str(u32 port_state)
 	return "N/A";
 }
 
+const char *port_link_to_str(u8 link)
+{
+	if (link)
+		return "up";
+	else
+		return "down";
+}
+
 int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 {
 	const struct nlattr *tb[ETHTOOL_A_PORT_MAX + 1] = {};
 	struct nl_context *nlctx = data;
 	DECLARE_ATTR_TB_INFO(tb);
-	uint8_t upstream_type;
 	bool silent;
 	int err_ret;
 	int ret;
@@ -65,6 +72,14 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 	if (tb[ETHTOOL_A_PORT_STATE])
 		print_string(PRINT_ANY, "port_type", "Port type: %s\n",
 			     port_state_to_str(mnl_attr_get_u32(tb[ETHTOOL_A_PORT_STATE])));
+
+	if (tb[ETHTOOL_A_PORT_LINK])
+		print_string(PRINT_ANY, "link", "link : %s\n", port_link_to_str(
+							mnl_attr_get_u32(
+								tb[ETHTOOL_A_PORT_LINK])));
+
+	if (tb[ETHTOOL_A_PORT_SPEED])
+		show_u32("speed", "speed : %u\n", tb[ETHTOOL_A_PORT_SPEED]);
 
 	if (!silent)
 		print_nl();
