@@ -79,7 +79,7 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 								tb[ETHTOOL_A_PORT_LINK])));
 
 	if (tb[ETHTOOL_A_PORT_SPEED])
-		show_u32("speed", "speed : %u\n", tb[ETHTOOL_A_PORT_SPEED]);
+		show_u32("speed", "speed\n", tb[ETHTOOL_A_PORT_SPEED]);
 
 	if (!silent)
 		print_nl();
