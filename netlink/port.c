@@ -21,12 +21,6 @@ const char *port_type_to_str(u32 port_type)
 	return "phy";
 }
 
-const char *port_state_to_str(u32 port_state)
-{
-	/* TODO */
-	return "N/A";
-}
-
 const char *port_link_to_str(u8 link)
 {
 	if (link)
@@ -68,10 +62,6 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 		show_bool("enabled", "enabled : %s\n", tb[ETHTOOL_A_PORT_ENABLED]);
 	if (tb[ETHTOOL_A_PORT_FORCED])
 		show_bool("forced", "forced : %s\n", tb[ETHTOOL_A_PORT_FORCED]);
-
-	if (tb[ETHTOOL_A_PORT_STATE])
-		print_string(PRINT_ANY, "port_type", "Port type: %s\n",
-			     port_state_to_str(mnl_attr_get_u32(tb[ETHTOOL_A_PORT_STATE])));
 
 	if (tb[ETHTOOL_A_PORT_LINK])
 		print_string(PRINT_ANY, "link", "link : %s\n", port_link_to_str(
