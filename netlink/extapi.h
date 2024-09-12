@@ -61,6 +61,8 @@ int nl_flash_module_fw(struct cmd_context *ctx);
 int nl_get_phy(struct cmd_context *ctx);
 int nl_gmse(struct cmd_context *ctx);
 int nl_set_phy(struct cmd_context *ctx);
+int nl_get_port(struct cmd_context *ctx);
+int nl_set_port(struct cmd_context *ctx);
 
 void nl_monitor_usage(void);
 
