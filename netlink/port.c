@@ -71,6 +71,9 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 	if (tb[ETHTOOL_A_PORT_SPEED])
 		show_u32("speed", "speed : ", tb[ETHTOOL_A_PORT_SPEED]);
 
+	ret = dump_link_modes(nlctx, tb[ETHTOOL_A_PORT_LINKMODES], true, LM_CLASS_REAL,
+			      "Supported : [ ", " ", " ]\n", NULL, "supported");
+
 	if (!silent)
 		print_nl();
 
