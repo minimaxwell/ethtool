@@ -1101,6 +1101,9 @@ enum {
 	ETHTOOL_A_PORT_FORCED,		/* u8 */
 	ETHTOOL_A_PORT_LINK,		/* u8 */
 	ETHTOOL_A_PORT_SPEED,		/* u32 */
+	ETHTOOL_A_PORT_LANES,		/* u32 */
+	ETHTOOL_A_PORT_DUPLEX,		/* u8 */
+	ETHTOOL_A_PORT_LINKMODES,	/* bitset */
 
 	/* add new constants above here */
 	__ETHTOOL_A_PORT_CNT,
