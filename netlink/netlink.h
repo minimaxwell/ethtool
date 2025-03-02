@@ -94,6 +94,7 @@ int fec_reply_cb(const struct nlmsghdr *nlhdr, void *data);
 int module_reply_cb(const struct nlmsghdr *nlhdr, void *data);
 int plca_get_cfg_reply_cb(const struct nlmsghdr *nlhdr, void *data);
 int pse_ntf_cb(const struct nlmsghdr *nlhdr, void *data);
+int port_reply_cb(const struct nlmsghdr *nlhdr, void *data);
 
 /* dump helpers */
 

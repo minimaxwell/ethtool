@@ -83,6 +83,10 @@ static struct {
 		.cmd	= ETHTOOL_MSG_PSE_NTF,
 		.cb	= pse_ntf_cb,
 	},
+	{
+		.cmd	= ETHTOOL_MSG_PORT_NTF,
+		.cb	= port_reply_cb,
+	},
 };
 
 static void clear_filter(struct nl_context *nlctx)
