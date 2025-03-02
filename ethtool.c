@@ -6260,14 +6260,6 @@ static const struct option args[] = {
 		.help	= "List PHYs"
 	},
 	{
-		.opts	= "--set-phy",
-		.targets_phy	= true,
-		.nlfunc	= nl_set_phy,
-		.help	= "Set PHY parameters",
-		.xhelp	= "		[ loopback on|off ]\n"
-			  "		[ isolate on|off ]\n"
-	},
-	{
 		.opts	= "--show-ports",
 		.nlfunc	= nl_get_port,
 		.help	= "List Ports"

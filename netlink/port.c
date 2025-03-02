@@ -67,12 +67,8 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 		print_string(PRINT_ANY, "link", "link : %s\n", port_link_to_str(
 							mnl_attr_get_u8(tb[ETHTOOL_A_PORT_LINK])));
 
-	/* TODO: Report by converting the  */
 	if (tb[ETHTOOL_A_PORT_SPEED])
 		show_u32("speed", "speed : ", tb[ETHTOOL_A_PORT_SPEED]);
-
-	ret = dump_link_modes(nlctx, tb[ETHTOOL_A_PORT_LINKMODES], true, LM_CLASS_REAL,
-			      "Supported : [ ", " ", " ]\n", NULL, "supported");
 
 	if (!silent)
 		print_nl();
