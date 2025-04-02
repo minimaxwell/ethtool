@@ -62,6 +62,8 @@ int port_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 		show_bool("enabled", "enabled : %s\n", tb[ETHTOOL_A_PORT_ENABLED]);
 	if (tb[ETHTOOL_A_PORT_FORCED])
 		show_bool("forced", "forced : %s\n", tb[ETHTOOL_A_PORT_FORCED]);
+	if (tb[ETHTOOL_A_PORT_ACTIVE])
+		show_bool("active", "active : %s\n", tb[ETHTOOL_A_PORT_ACTIVE]);
 
 	if (tb[ETHTOOL_A_PORT_LINK])
 		print_string(PRINT_ANY, "link", "link : %s\n", port_link_to_str(
