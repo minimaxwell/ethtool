@@ -56,6 +56,7 @@ ethtool_SOURCES += \
 		  netlink/phy.c \
 		  netlink/tsconfig.c \
 		  netlink/mse.c \
+		  netlink/port.c \
 		  uapi/linux/ethtool_netlink.h \
 		  uapi/linux/ethtool_netlink_generated.h \
 		  uapi/linux/netlink.h uapi/linux/genetlink.h \

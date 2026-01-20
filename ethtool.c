@@ -6381,6 +6381,11 @@ static const struct option args[] = {
 		.help	= "Show Mean Square Error (MSE) diagnostics",
 	},
 	{
+		.opts	= "--show-ports",
+		.nlfunc	= nl_get_port,
+		.help	= "List Ports"
+	},
+	{
 		.opts	= "-h|--help",
 		.no_dev	= true,
 		.func	= show_usage,
