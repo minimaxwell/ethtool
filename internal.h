@@ -12,6 +12,7 @@
 #ifdef HAVE_CONFIG_H
 #include "ethtool-config.h"
 #endif
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdint.h>
